@@ -1,0 +1,50 @@
+system { 
+	specification {		
+		int current_temp;
+		int request_temp;
+		int max_temp;		
+		int alarm;     
+		int turn_on;  
+		              
+		event increase {  
+			request_temp++;
+			if 
+				:: request_temp > current_temp -> turn_on = 1; 
+					if 
+						:: request_temp > max_temp -> alarm = 1;
+						:: skip;
+					fi;
+				:: skip;
+			fi;
+		}                   
+		      
+		event decrease {			  
+			request_temp--;
+			if 
+				:: request_temp < current_temp -> turn_on = 0; 
+					if 
+						:: request_temp < max_temp -> alarm = 0;
+						:: skip;
+					fi;
+				:: skip;
+			fi;  
+		}  
+	
+		event reset {
+			turn_on = 0;
+			request_temp = current_temp;
+		}     
+	}                       
+	configuration {                
+		config1 {  
+			request_temp = 5;  
+			current_temp = 5;   	 		  
+			max_temp = 29;			
+		} 	     			             
+	}  
+	scenario permutation with step = 25; 
+	
+	verify { 		  
+		AG<=20 (alarm == 0)
+	}
+} 

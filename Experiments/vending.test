@@ -1,0 +1,59 @@
+system { 
+	specification {		
+		int water;
+		int cake;
+		int coffee;
+		int input;
+		int remaining;
+
+		event insert1 {
+			input = input + 1; 
+		} 
+		event insert2 {
+			input = input + 2;
+		}	
+		event insert5 {
+			input = input + 5;
+		}	
+		event buy_water{
+			if
+              :: input >= water -> input = input - water; remaining = remaining + water;
+              :: skip;
+            fi;
+		}
+		event buy_cake{
+			if
+              :: input >= cake -> input = input - cake; remaining = remaining + cake;
+              :: skip;
+            fi;
+		}
+		event buy_coffee{
+			if
+              :: input >= coffee -> input = input - coffee; remaining = remaining + coffee;
+                 :: skip;
+            fi;
+		}
+		event out {
+			input = 0;
+		}     
+	}                       
+	configuration {                
+//		config1 { 
+//			water = 1;
+//		 	cake = 5;
+//			coffee = 10; 
+//			remaining = 0; 		 
+//		} 	
+		config2 {  
+			water = 1;
+		 	cake = 6;
+			coffee = 8;
+			remaining = 10; 		
+		}      			             
+	}  
+	scenario permutation with step = 30; 
+	
+	verify { 		  
+		AG<= 20 (remaining >= 0)
+	}
+} 
