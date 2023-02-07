@@ -10,8 +10,7 @@ The tool is implemented based on the SpinJa model checker (a re-implementation o
 1. _\Experiments: Some small examples for the experiment
 
 
-See [1] for the short description of the approach and the language
-The full definition (and implementation) of the language is in _\schedulingDSL.parent directory
+See [1] for the short description of the approach and the language. The full definition (and implementation) of the language is in _\schedulingDSL.parent directory
 
 
 ----------------------------------------
